@@ -29,6 +29,8 @@ namespace CAYYA_Backend.Models
         public string clientFirstName { set; get; }
         [FirestoreProperty]
         public string clientLastName { set; get; }
+        [FirestoreProperty]
+        public string Picture { set; get; }
         public Role role { get; set; }
         public Tarification tarification { get; set; }
         public Notification notification { get; set; }
