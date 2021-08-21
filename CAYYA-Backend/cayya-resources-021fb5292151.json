@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cayya-resources",
+  "private_key_id": "021fb529215102ba20153a9d592499cbe719c21b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCqUGBrSU0OzXaV\ncJtNYZ8/L+7H4/ouaxrOyGuEs/c+mUWwjzLHFtrVD9KuIP/itFeMzUvG9Nf8szmf\nbKHqoj4fwwE8ODk8CfFK1IgLBwPGmWKlxpynrWftrIRM4DZtI7OSQgydlZEHVM1b\nkyuAEY7s4RIKAm6vFYWWFAEvcW9Zt1LXdZHhkq0DkqGpw+YR3ppIVCASy1y8qdPA\nUueERf8zFHX9EfLwfjUMKsYl/CB1nip7vLyS5JRn0dQ+9sdMVF6qzPIBeMLKpbqm\nLgeZhH6vd6gOJeSMQtiQuBBNYaYsBBhtdhn6pwHjGPmLPZojeoTMgXLT3Wwy07ch\ngHAxgrmzAgMBAAECggEABemewfVm/psPwVYJ8NtGlIJ8/HqDznBlxgT7hT1cLtOn\nsYlJyX3tIJVuinYB0XnSSkSRm2QXoCG2tTv9DltjOGYO2RYt7SbT4Mr/uBDzxsVq\nFng5KwcK7cYzR5nxucM8si38fcyvSWezw2NDZixLNRpb2SDG0pQ23C7F8G2J4JLn\n5U5QaWrfnORA7TOGGz3lMqGBJgm9Sh6y3Zk9NdnLGhCKozjTo66tM+tKSpuGkZyy\nLkJoD9ODqRgsZTIUvGX0ZDkzQ+ouzwEO+HaBhzwDcva+FxZQYLvARqs5j/fXAA/4\n0DcMuHzBJ85GiDMSD+cjEkUpeic91qv2SDr3NXeRlQKBgQDuwAs9wFvOSgUlME+2\nmQwuM9T51c3/rki/rYPGdumVdCsBWLD1AiuErMk2C5lm3mimqYlmNkh8S5ATPa9/\nm8NPBlCRC1VGw0RogZ0EgFAV5okPdWSHvjUqG/9m1kEhS7H7vuyQaACHxU6ElJ7V\nMV1RGPxh34uwhYGr+MRnxzKaHwKBgQC2nob/HTmt+WKGOy4Wvn1rs7nj9apEyV5l\n+QfJCIWxt8A2nUaCXXTZ+aVQNCK4HMbujPQyWSG/8HfSEP8M5peJLkYqHTnjYB3U\nuBAkHVNjQVfyDMX/nWlwmR8HSN+2JuRmqTByui9SY+q2Pv77OHQlC/PQRs8K/nzv\n9s3pWUqV7QKBgQDVmGp2LIn13LMNulMWgYYsL6LygR1zCXF8SrgB7pC7bNqssbRe\n/joA0LSS7X2oUoI92J9cGmRvDwsuq5k/CROKt5OMsB7y1+9zr8HSLRl4/m7Qra3q\n43ic2797OWO7bgUlvIHYD7OpxBOi+XPAOBHMZBYnWd+XZVnFiSHt1oCm8QKBgDAI\npo13zHIcRHP2IPtOg4LOtThmp7CMHs5HoGqaWUATivVSjPdBSbkD1x2veOpgd1rL\nrHeJxjzMLVgNrGhiRr2IdGAja9SItY/8EhLNu99BkrZR8cp4RwGc5PJvkphAxpbS\nLbIfks7jBRuGml7NzI7qA+lmlpLXuVkM28BjAiFJAoGBANG/pCtgxgE2/H8eGiFm\nsyqTwpqYv3GVaFqI5SpQhMLhAB4D5MaYa6zJZPTp30JhV95cmTTk/nbaCORW3nSs\naAM4NoihilY01W7rKz5sLP6uuOk6Gal7UHZ3N1B7DfxnlBqC3Gfmi0o8987Jb5Vs\nmKF5vSbRQn3GbAhcUnikkjC0\n-----END PRIVATE KEY-----\n",
+  "client_email": "cayya-resources@appspot.gserviceaccount.com",
+  "client_id": "104817652454064310246",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cayya-resources%40appspot.gserviceaccount.com"
+}
