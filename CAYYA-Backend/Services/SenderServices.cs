@@ -21,13 +21,13 @@ namespace CAYYA_Backend.Services
             projectID = "cayya-resources";
             _firestoreDb = FirestoreDb.Create(projectID);
         }
+        //create resource
         public async Task CreateResource(Resources resource)
         {
             CollectionReference collectionReference = _firestoreDb.Collection("Resources");
             await collectionReference.AddAsync(resource);
            
         }
-        [HttpGet]
         public async Task<List<Resources>> listResources()
         {
             Query resourceQuery = _firestoreDb.Collection("Resources");

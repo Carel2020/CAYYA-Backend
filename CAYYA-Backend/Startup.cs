@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CAYYA_Backend.Data;
+using CAYYA_Backend.Services;
 
 namespace CAYYA_Backend
 {
@@ -25,6 +26,7 @@ namespace CAYYA_Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ISenderService, SenderServices>();
             services.AddControllersWithViews();
 
             services.AddDbContext<CAYYA_BackendContext>(options =>

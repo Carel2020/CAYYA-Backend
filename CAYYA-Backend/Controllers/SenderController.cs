@@ -21,13 +21,13 @@ namespace CAYYA_Backend.Controllers
         private FirestoreDb _firestoreDb;
         private readonly ISenderService _senderService;
         FirebaseClient client;
-
+/*
         private readonly IFirebaseConfig config = new FirebaseConfig
         {
             AuthSecret = "021fb529215102ba20153a9d592499cbe719c21b",
             BasePath = "/"
         };
-
+*/
         //constructor
         public SenderController(ISenderService senderService)
         {
@@ -44,44 +44,19 @@ namespace CAYYA_Backend.Controllers
             return View(listResource);
         }
 
-        // GET: SenderController/Details/5
-        public IActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: SenderController/Create
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> CreateResource(Resources resource)
         {
             await _senderService.CreateResource(resource);
-            //return RedirectToAction(nameof(Index));
-            return View();
+            return RedirectToAction(nameof(Index));
+            //return View();
         }
 
-        // POST: SenderController/Create
-        [HttpPost]
-        public ActionResult Create(Resources resources)
+        [HttpGet]
+        public IActionResult CreateResource()
         {
-            try
-            {
-                AddResourceToFirestore(resources);
-                ModelState.AddModelError(string.Empty, "Added Resource Successful");
-            }
-            catch (Exception exception)
-            {
-                ModelState.AddModelError(string.Empty, exception.Message); 
-            }
             return View();
-        }
-
-        private void AddResourceToFirestore(Resources resources)
-        {
-            client = new FireSharp.FirebaseClient(config);
-            var data = resources;
-            PushResponse response = client.Push("Resource/", data);
-            data.resourceID = response.Result.name;
-            SetResponse setResponse = client.Set("Resource/" + data.resourceID, data);
         }
 
         // GET: SenderController/Delete/5

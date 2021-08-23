@@ -1,0 +1,72 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<CAYYA_Backend.Models.Resources>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="CreateResource">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.resourceID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resourceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resourceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resourcePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resourceState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.resourceDescription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.resourceID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.resourceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.resourceDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.resourcePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.resourceState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.resourceDescription)
+            </td>
+            <td>
+                <a asp-action="AtualizarPessoa" asp-route-pessoaId="@item.resourceID">Atualizar</a>
+                <form asp-action="ExcluirPessoa" asp-route-pessoaId="@item.resourceID">
+                    <button type="submit">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

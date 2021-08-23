@@ -1,8 +1,6 @@
 ﻿using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CAYYA_Backend.Models
 {
@@ -13,7 +11,7 @@ namespace CAYYA_Backend.Models
         [FirestoreProperty]
         public string resourceName { set; get; }
         [FirestoreProperty]
-        public DateTime resourceDate { set; get; }
+        public string resourceDate { set; get; }
         [FirestoreProperty]
         public string resourcePath { set; get; }
         [FirestoreProperty]
