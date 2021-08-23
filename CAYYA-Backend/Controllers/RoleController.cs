@@ -31,9 +31,15 @@ namespace CAYYA_Backend.Controllers
             List<Role> listRole = await _roleService.listRole();
             return View(listRole);
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
 
+        [HttpPost]
         // GET: RoleController/Create
-        public async Task<IActionResult> CreateRole(Role role)
+        public async Task<IActionResult> Create(Role role)
         {
             await _roleService.CreateRole(role);
             return RedirectToAction(nameof(Index));
@@ -42,7 +48,8 @@ namespace CAYYA_Backend.Controllers
         // POST: RoleController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //i've change Create to CreateRole for test purpose
+        public ActionResult CreateRole(IFormCollection collection)
         {
             try
             {

@@ -27,6 +27,7 @@ namespace CAYYA_Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ISenderService, SenderServices>();
+            services.AddScoped<IRoleService, RoleService >();
             services.AddControllersWithViews();
 
             services.AddDbContext<CAYYA_BackendContext>(options =>
