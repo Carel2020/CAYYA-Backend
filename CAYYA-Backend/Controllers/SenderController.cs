@@ -14,20 +14,15 @@ using System.Threading.Tasks;
 
 namespace CAYYA_Backend.Controllers
 {
-    public class SenderController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SenderController : ControllerBase
     {
-        private string filepath = "C:\\Users\\Carel Njanko\\source\\repos\\CAYYA-Backend\\CAYYA-Backend\\cayya-resources-021fb5292151.json";
+        private string filepath = "cayya-resources-021fb5292151.json";
         private string projectID;
         private FirestoreDb _firestoreDb;
         private readonly ISenderService _senderService;
-        FirebaseClient client;
-/*
-        private readonly IFirebaseConfig config = new FirebaseConfig
-        {
-            AuthSecret = "021fb529215102ba20153a9d592499cbe719c21b",
-            BasePath = "/"
-        };
-*/
+
         //constructor
         public SenderController(ISenderService senderService)
         {
@@ -36,49 +31,49 @@ namespace CAYYA_Backend.Controllers
             _firestoreDb = FirestoreDb.Create(projectID);
             _senderService = senderService;
         }
-
+        [HttpGet]
         // GET: SenderController
-        public async Task<IActionResult> Index()
+        public async Task<IEnumerable<Resources>> Index()
         {
             List<Resources> listResource = await _senderService.listResources();
-            return View(listResource);
+            return listResource;
+        }
+
+        [HttpGet("{ResourceID}")]
+        public async Task<Resources> GetResource([FromBody] string resourceID)
+        {
+            return await _senderService.GetResource(resourceID);
         }
 
         // GET: SenderController/Create
         [HttpPost]
-        public async Task<IActionResult> CreateResource(Resources resource)
+        public async Task<IActionResult> CreateResource([FromBody] Resources resource)
         {
             await _senderService.CreateResource(resource);
-            return RedirectToAction(nameof(Index));
-            //return View();
+            return Ok(resource);
         }
 
-        [HttpGet]
-        public IActionResult CreateResource()
-        {
-            return View();
-        }
+        /*        [HttpGet]
+                public IActionResult CreateResource()
+                {
+                    return View();
+                }
+        */
 
-        // GET: SenderController/Delete/5
-        public async Task<IActionResult> Delete(string resourceID)
+        [HttpDelete("{id}")]
+        // GET: SenderController/Delete
+        public async Task<IActionResult> DeleteResource([FromBody] string resourceID)
         {
             await _senderService.DeleteResource(resourceID);
-            return RedirectToAction(nameof(Index));
+            return Ok(resourceID);
         }
 
-        // POST: SenderController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        //PUT: SenderCController/Update
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateResource([FromBody] Resources resources)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _senderService.UpdateResource(resources);
+            return Ok(resources);
         }
     }
 }

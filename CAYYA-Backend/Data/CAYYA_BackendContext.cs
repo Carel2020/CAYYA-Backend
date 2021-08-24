@@ -15,5 +15,7 @@ namespace CAYYA_Backend.Data
         }
 
         public DbSet<CAYYA_Backend.Models.Role> Role { get; set; }
+
+        public DbSet<CAYYA_Backend.Models.Category> Category { get; set; }
     }
 }

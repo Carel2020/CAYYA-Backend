@@ -22,7 +22,7 @@ namespace CAYYA_Backend.Controllers
         {
             return View();
         }
-
+/*
         public IActionResult Privacy()
         {
             return View();
@@ -33,5 +33,6 @@ namespace CAYYA_Backend.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+*/
     }
 }

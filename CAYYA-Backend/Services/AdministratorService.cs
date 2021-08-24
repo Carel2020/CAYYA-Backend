@@ -10,7 +10,7 @@ namespace CAYYA_Backend.Services
 {
     public class AdministratorService : IAdministratorService
     {
-        private string filepath = "C:\\Users\\Carel Njanko\\source\\repos\\CAYYA-Backend\\CAYYA-Backend\\cayya-resources-021fb5292151.json";
+        private string filepath = "cayya-resources-021fb5292151.json";
         private string projectID;
         private FirestoreDb _firestoreDb;
 
@@ -50,6 +50,11 @@ namespace CAYYA_Backend.Services
         {
             DocumentReference documentReference = _firestoreDb.Collection("User").Document(userID);
             await documentReference.DeleteAsync();
+        }
+
+        public Task<Resources> GetResource(string resourceID)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<Resources>> listResources()
@@ -94,10 +99,16 @@ namespace CAYYA_Backend.Services
             return listUser;
         }
 
+        public async Task UpdateResource(Resources resources)
+        {
+            DocumentReference documentReference = _firestoreDb.Collection("Resources").Document(resources.resourceID);
+            await documentReference.SetAsync(resources, SetOptions.Overwrite);
+        }
+
         public async Task UpdateUser(User User)
         {
             DocumentReference documentReference = _firestoreDb.Collection("User").Document(User.userID);
-           await documentReference.SetAsync(User, SetOptions.Overwrite);
+            await documentReference.SetAsync(User, SetOptions.Overwrite);
         }
 
         public Task validateResource()

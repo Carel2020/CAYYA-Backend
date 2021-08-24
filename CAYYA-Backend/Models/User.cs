@@ -19,8 +19,8 @@ namespace CAYYA_Backend.Models
         public string email { set; get; }
         [FirestoreProperty]
         public int age { set; get; }
-        [FirestoreProperty]
-        public string companyType { set; get; }
+        /*[FirestoreProperty]
+        public string companyType { set; get; }*/
         [FirestoreProperty]
         public int contact { set; get; }
         [FirestoreProperty]
@@ -31,8 +31,11 @@ namespace CAYYA_Backend.Models
         public string clientLastName { set; get; }
         [FirestoreProperty]
         public string Picture { set; get; }
+        [FirestoreProperty]
         public Role role { get; set; }
+        [FirestoreProperty]
         public Tarification tarification { get; set; }
+        [FirestoreProperty]
         public Notification notification { get; set; }
     }
 }

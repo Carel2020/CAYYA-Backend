@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace CAYYA_Backend.Controllers
 {
-    public class RoleController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RoleController : ControllerBase
     {
-        private string filepath = "C:\\Users\\Carel Njanko\\source\\repos\\CAYYA-Backend\\CAYYA-Backend\\cayya-resources-021fb5292151.json";
+        private string filepath = "cayya-resources-021fb5292151.json";
         private string projectID;
         private FirestoreDb _firestoreDb;
         private readonly IRoleService _roleService;
@@ -25,40 +27,37 @@ namespace CAYYA_Backend.Controllers
             _firestoreDb = FirestoreDb.Create(projectID);
             _roleService = roleService;
         }
+
+        [HttpGet]
         // GET: RoleController
-        public async Task<IActionResult> Index()
+        public async Task<IEnumerable<Role>> Index()
         {
             List<Role> listRole = await _roleService.listRole();
-            return View(listRole);
-        }
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
+            return listRole;
         }
 
         [HttpPost]
-        // GET: RoleController/Create
-        public async Task<IActionResult> Create(Role role)
+        // POST: RoleController/Create
+        public async Task<IActionResult> Create([FromBody] Role role)
         {
             await _roleService.CreateRole(role);
-            return RedirectToAction(nameof(Index));
+            return Ok(role);
         }
 
-        // POST: RoleController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //i've change Create to CreateRole for test purpose
-        public ActionResult CreateRole(IFormCollection collection)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRole(string id, [FromBody] Role role)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _roleService.UpdateRole(role);
+            return Ok(role);
         }
+
+        [HttpDelete("{roleID}")]
+        // GET: RoleController/Delete
+        public async Task<IActionResult> DeleteRole([FromBody] string roleID)
+        {
+            await _roleService.DeleteRole(roleID);
+            return Ok(roleID);
+        }
+
     }
 }

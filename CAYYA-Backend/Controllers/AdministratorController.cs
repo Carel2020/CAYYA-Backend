@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace CAYYA_Backend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AdministratorController : Controller
     {
-        private string filepath = "C:\\Users\\Carel Njanko\\source\\repos\\CAYYA-Backend\\CAYYA-Backend\\cayya-resources-021fb5292151.json";
+        private string filepath = "cayya-resources-021fb5292151.json";
         private string projectID;
         private FirestoreDb _firestoreDb;
         private readonly IAdministratorService _administratorService;
@@ -26,68 +28,35 @@ namespace CAYYA_Backend.Controllers
             _administratorService = administratorService;
         }
 
+        [HttpGet]
         // GET: AdministratorController
-        public async Task<IActionResult> Index()
+        public async Task<IEnumerable<User>> Index()
         {
             List<User> listUser = await _administratorService.listUser();
-            return View(listUser);
+            return listUser;
         }
 
-        // GET: AdministratorController/Details/5
-        public IActionResult Details(int id)
-        {
-            return View();
-        }
-
+        [HttpPost]
         // GET: AdministratorController/Create
-        public async Task<IActionResult> CreateUser(User user)
+        public async Task<IActionResult> CreateUser([FromBody] User user)
         {
             await _administratorService.CreateUser(user);
-            return RedirectToAction(nameof(Index));
+            return Ok(user);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateUser(User user)
+        [HttpPut("{UserID}")]
+        public async Task<IActionResult> UpdateUser(string UserID, [FromBody] User user)
         {
             await _administratorService.UpdateUser(user);
-            return RedirectToAction(nameof(Index));
-        }
-        // POST: AdministratorController/Create
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok(user);
         }
 
+        [HttpDelete("{UserID}")]
         // GET: AdministratorController/Delete/5
-        public async Task<IActionResult> DeleteUser(string UserID)
+        public async Task<IActionResult> DeleteUser([FromBody] string UserID)
         {
             await _administratorService.DeleteResource(UserID);
-            return RedirectToAction(nameof(Index));
-        }
-
-        // POST: AdministratorController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok(UserID);
         }
     }
 }

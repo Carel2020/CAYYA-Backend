@@ -11,9 +11,10 @@ namespace CAYYA_Backend.Services
 {
     public class SenderServices : ISenderService
     {
-        private string filepath = "C:\\Users\\Carel Njanko\\source\\repos\\CAYYA-Backend\\CAYYA-Backend\\cayya-resources-021fb5292151.json";
+        private string filepath = "cayya-resources-021fb5292151.json";
         private string projectID;
         private FirestoreDb _firestoreDb;
+
 
         public SenderServices()
         {
@@ -49,11 +50,40 @@ namespace CAYYA_Backend.Services
             return listResource;
         }
 
-        [HttpDelete]
         public async Task DeleteResource(string resourceID)
         {
             DocumentReference documentReference = _firestoreDb.Collection("Resources").Document(resourceID);
             await documentReference.DeleteAsync();
+        }
+
+        public async Task UpdateResource(Resources resources)
+        {
+            DocumentReference documentReference = _firestoreDb.Collection("Resources").Document(resources.resourceID);
+            await documentReference.SetAsync(resources, SetOptions.Overwrite);
+        }
+
+        public async Task<Resources> GetResource(string resourceID)
+        {
+            try
+            {
+                DocumentReference documentReference = _firestoreDb.Collection("Resources").Document(resourceID);
+                DocumentSnapshot snapshot = await documentReference.GetSnapshotAsync();
+
+                if (snapshot.Exists)
+                {
+                    Resources resources = snapshot.ConvertTo<Resources>();
+                    resources.resourceID = snapshot.Id;
+                    return resources;
+                }
+                else
+                {
+                    return new Resources();
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

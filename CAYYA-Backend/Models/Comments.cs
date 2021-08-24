@@ -9,12 +9,14 @@ namespace CAYYA_Backend.Models
     [FirestoreData]
     public class Comments
     {
-        public string CommentID { set; get; }
+        public string commentID { set; get; }
         [FirestoreProperty]
         public string commentDetails { set; get; }
         [FirestoreProperty]
         public DateTime commentDate { set; get; }
+        [FirestoreProperty]
         public Resources resource { get; set; }
-        public UserModel user { get; set; }
+        [FirestoreProperty]
+        public UserModel UserModel { get; set; }
     }
 }

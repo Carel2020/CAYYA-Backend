@@ -11,15 +11,18 @@ namespace CAYYA_Backend.Models
         [FirestoreProperty]
         public string resourceName { set; get; }
         [FirestoreProperty]
-        public string resourceDate { set; get; }
+        public DateTime resourceDate { set; get; }
         [FirestoreProperty]
         public string resourcePath { set; get; }
         [FirestoreProperty]
         public Boolean resourceState { set; get; }
         [FirestoreProperty]
         public string resourceDescription { set; get; }
+        [FirestoreProperty]
         public Category category { get; set; }
+        [FirestoreProperty]
         public UserModel sender { get; set; }
+        [FirestoreProperty]
         public List<Comments> comments { get; set; }
     }
 }

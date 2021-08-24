@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CAYYA_Backend.Data;
 using CAYYA_Backend.Services;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace CAYYA_Backend
 {
@@ -28,7 +29,12 @@ namespace CAYYA_Backend
         {
             services.AddScoped<ISenderService, SenderServices>();
             services.AddScoped<IRoleService, RoleService >();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IAdministratorService, AdministratorService>();
             services.AddControllersWithViews();
+
+            services.AddSwaggerGen();
 
             services.AddDbContext<CAYYA_BackendContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CAYYA_BackendContext")));
@@ -49,6 +55,12 @@ namespace CAYYA_Backend
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseRouting();
 

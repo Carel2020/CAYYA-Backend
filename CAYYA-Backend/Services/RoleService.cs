@@ -10,7 +10,7 @@ namespace CAYYA_Backend.Services
 {
     public class RoleService : IRoleService
     {
-        private string filepath = "C:\\Users\\Carel Njanko\\source\\repos\\CAYYA-Backend\\CAYYA-Backend\\cayya-resources-021fb5292151.json";
+        private string filepath = "cayya-resources-021fb5292151.json";
         private string projectID;
         private FirestoreDb _firestoreDb;
 
@@ -25,11 +25,18 @@ namespace CAYYA_Backend.Services
             CollectionReference collectionReference = _firestoreDb.Collection("Role");
             await collectionReference.AddAsync(role);
         }
+
+        public async Task DeleteRole(string roleID)
+        {
+            DocumentReference documentReference = _firestoreDb.Collection("Role").Document(roleID);
+            await documentReference.DeleteAsync();
+        }
+
         //list of roles
         public async Task<List<Role>> listRole()
         {
-            Query resourceQuery = _firestoreDb.Collection("Role");
-            QuerySnapshot roleQuerySnapshot = await resourceQuery.GetSnapshotAsync();
+            Query roleQuery = _firestoreDb.Collection("Role");
+            QuerySnapshot roleQuerySnapshot = await roleQuery.GetSnapshotAsync();
             List<Role> listRole = new List<Role>();
 
             foreach (DocumentSnapshot documentSnapshot in roleQuerySnapshot.Documents)
@@ -42,9 +49,14 @@ namespace CAYYA_Backend.Services
                     newRole.roleID = documentSnapshot.Id;
                     listRole.Add(newRole);
                 }
-
             }
             return listRole;
+        }
+
+        public async Task UpdateRole(Role role)
+        {
+            DocumentReference documentReference = _firestoreDb.Collection("Role").Document(role.roleID);
+            await documentReference.SetAsync(role, SetOptions.Overwrite);
         }
     }
 }
