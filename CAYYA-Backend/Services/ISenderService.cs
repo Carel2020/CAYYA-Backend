@@ -16,6 +16,6 @@ namespace CAYYA_Backend.Services
         //get a single resource
         public Task<Resources> GetResource(string resourceID);
         //get the list of all resources like the read operation
-        public Task<List<Resources>> listResources();
+        public Task<List<ResourceCustomersSend>> listResources();
     }
 }

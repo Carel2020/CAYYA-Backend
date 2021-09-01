@@ -57,11 +57,11 @@ namespace CAYYA_Backend.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<Resources>> listResources()
+        public async Task<List<ResourceCustomersSend>> listResources()
         {
             Query resourceQuery = _firestoreDb.Collection("Resources");
             QuerySnapshot resourceQuerySnapshot = await resourceQuery.GetSnapshotAsync();
-            List<Resources> listResource = new List<Resources>();
+            List<ResourceCustomersSend> listResource = new List<ResourceCustomersSend>();
 
             foreach (DocumentSnapshot documentSnapshot in resourceQuerySnapshot.Documents)
             {
@@ -69,7 +69,7 @@ namespace CAYYA_Backend.Services
                 {
                     Dictionary<string, object> resource = documentSnapshot.ToDictionary();
                     string json = JsonConvert.SerializeObject(resource);
-                    Resources newResource = JsonConvert.DeserializeObject<Resources>(json);
+                    ResourceCustomersSend newResource = JsonConvert.DeserializeObject<ResourceCustomersSend>(json);
                     newResource.resourceID = documentSnapshot.Id;
                     listResource.Add(newResource);
                 }

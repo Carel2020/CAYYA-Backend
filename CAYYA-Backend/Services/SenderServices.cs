@@ -1,4 +1,5 @@
-﻿using CAYYA_Backend.Models;
+﻿using AutoMapper;
+using CAYYA_Backend.Models;
 using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -26,24 +27,66 @@ namespace CAYYA_Backend.Services
         public async Task CreateResource(Resources resource)
         {
             CollectionReference collectionReference = _firestoreDb.Collection("Resources");
+            //resource.resourceDate = Timestamp.GetCurrentTimestamp();
+            resource.resourceDate = Timestamp.GetCurrentTimestamp();
             await collectionReference.AddAsync(resource);
-           
         }
-        public async Task<List<Resources>> listResources()
+        public async Task<List<ResourceCustomersSend>> listResources()
         {
             Query resourceQuery = _firestoreDb.Collection("Resources");
             QuerySnapshot resourceQuerySnapshot = await resourceQuery.GetSnapshotAsync();
-            List<Resources> listResource = new List<Resources>();
-
+            List<ResourceCustomersSend> listResource = new List<ResourceCustomersSend>();
+            
             foreach (DocumentSnapshot documentSnapshot in resourceQuerySnapshot.Documents)
             {
                 if (documentSnapshot.Exists)
                 {
                     Dictionary<string, object> resource = documentSnapshot.ToDictionary();
+                    string date = resource["resourceDate"].ToString();
+                    
+                    string data2 = date.Remove(11);
+
+
+                    int index = date.IndexOf(data2);
+                    string cleanPath = (index < 0)
+                        ? date
+                        : date.Remove(index, data2.Length);
+
+                    DateTime ts = DateTime.Parse(cleanPath);
+            
                     string json = JsonConvert.SerializeObject(resource);
-                    Resources newResource = JsonConvert.DeserializeObject<Resources>(json);
+                    RessourceReceive newResource = JsonConvert.DeserializeObject<RessourceReceive>(json);
+
                     newResource.resourceID = documentSnapshot.Id;
-                    listResource.Add(newResource);
+                    ResourceCustomersSend resourceCustomersSend = new ResourceCustomersSend();
+                    resourceCustomersSend.resourceDate = ts;
+                    resourceCustomersSend.resourceDescription = newResource.resourceDescription;
+                    resourceCustomersSend.resourceName = newResource.resourceName;
+                    resourceCustomersSend.resourcePath = newResource.resourcePath;
+                    resourceCustomersSend.resourceState = newResource.resourceState;
+                    resourceCustomersSend.resourceID = newResource.resourceID;
+                    resourceCustomersSend.category = newResource.category;
+                    resourceCustomersSend.comments = newResource.comments;
+                    resourceCustomersSend.sender = newResource.sender;
+             
+             /**       var config = new MapperConfiguration(cfg => {
+                        cfg.CreateMap<ResourceCustomersSend, RessourceReceive>();
+                    });
+                    IMapper iMapper = config.CreateMapper();
+                    var source = new ResourceCustomersSend();
+                    var destination = iMapper.Map<ResourceCustomersSend, RessourceReceive>(source);
+
+                    /**                 resources.resourceDate    = Convert.ToInt64(UnixTimeStamp).ToString();
+
+                     resources.resourceDate = Convert.(resource["resourceDate"].ToString());
+                    newResource.resourceDate = new DateTime();
+                    string resourcedate = resource["resourceDate"].ToString();
+                    string resourcedate = DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss");
+                    DateTime.parse(timestamp.toDate().toString())
+                     DateTime result = DateTime.ParseExact(Timestamp.ToString().Replace("Timestamp:", "").Trim(), "yyyy-MM-ddTHH:mm:ss.ffffffK", null);
+                    **/
+
+                    listResource.Add(resourceCustomersSend);
                 }
 
             }

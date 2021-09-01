@@ -33,9 +33,9 @@ namespace CAYYA_Backend.Controllers
         }
         [HttpGet]
         // GET: SenderController
-        public async Task<IEnumerable<Resources>> Index()
+        public async Task<IEnumerable<ResourceCustomersSend>> Index()
         {
-            List<Resources> listResource = await _senderService.listResources();
+            List<ResourceCustomersSend> listResource = await _senderService.listResources();
             return listResource;
         }
 
