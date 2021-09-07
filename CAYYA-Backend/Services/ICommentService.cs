@@ -12,5 +12,6 @@ namespace CAYYA_Backend.Services
         public Task UpdateComment(Comments comment);
         public Task DeleteComment(string commentID);
         public Task<List<Comments>> listComment();
+        public Task<Comments> GetCommentData(string CommentID);
     }
 }

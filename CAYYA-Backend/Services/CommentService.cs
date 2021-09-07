@@ -10,7 +10,7 @@ namespace CAYYA_Backend.Services
 {
     public class CommentService : ICommentService
     {
-        private string filepath = "cayya-resources-021fb5292151.json";
+        private string filepath = "your path";
         private string projectID;
         private FirestoreDb _firestoreDb;
 
@@ -58,6 +58,30 @@ namespace CAYYA_Backend.Services
         {
             DocumentReference documentReference = _firestoreDb.Collection("Comments").Document(comment.commentID);
             await documentReference.SetAsync(comment, SetOptions.Overwrite);
+        }
+
+        public async Task<Comments> GetCommentData(string CommentID)
+        {
+            try
+            {
+                DocumentReference docRef = _firestoreDb.Collection("Comments").Document(CommentID);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                if (snapshot.Exists)
+                {
+                    Comments comments = snapshot.ConvertTo<Comments>();
+                    comments.commentID = snapshot.Id;
+                    return comments;
+                }
+                else
+                {
+                    return new Comments();
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

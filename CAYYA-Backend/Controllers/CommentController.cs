@@ -13,7 +13,7 @@ namespace CAYYA_Backend.Controllers
     [ApiController]
     public class CommentController : ControllerBase
     {
-        private string filepath = "cayya-resources-021fb5292151.json";
+        private string filepath = "your path ";
         private string projectID;
         private FirestoreDb _firestoreDb;
         private readonly ICommentService _commentService;
@@ -57,6 +57,12 @@ namespace CAYYA_Backend.Controllers
         {
             await _commentService.DeleteComment(commentID);
             return Ok(commentID);
+        }
+
+        [HttpGet("{id}")]
+        public Task<Comments> Get(string id)
+        {
+            return _commentService.GetCommentData(id);
         }
     }
 }

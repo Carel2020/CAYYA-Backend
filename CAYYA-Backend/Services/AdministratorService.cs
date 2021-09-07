@@ -10,7 +10,7 @@ namespace CAYYA_Backend.Services
 {
     public class AdministratorService : IAdministratorService
     {
-        private string filepath = "cayya-resources-021fb5292151.json";
+        private string filepath = "your path";
         private string projectID;
         private FirestoreDb _firestoreDb;
 

@@ -18,7 +18,7 @@ namespace CAYYA_Backend.Controllers
     [ApiController]
     public class SenderController : ControllerBase
     {
-        private string filepath = "cayya-resources-021fb5292151.json";
+        private string filepath = "your path";
         private string projectID;
         private FirestoreDb _firestoreDb;
         private readonly ISenderService _senderService;
@@ -39,10 +39,10 @@ namespace CAYYA_Backend.Controllers
             return listResource;
         }
 
-        [HttpGet("{ResourceID}")]
-        public async Task<Resources> GetResource([FromBody] string resourceID)
+        [HttpGet("{id}")]
+        public async Task<Resources> GetResource(string id)
         {
-            return await _senderService.GetResource(resourceID);
+            return await _senderService.GetResource(id);
         }
 
         // GET: SenderController/Create
@@ -69,7 +69,7 @@ namespace CAYYA_Backend.Controllers
         }
 
         //PUT: SenderCController/Update
-        [HttpPut("{id}")]
+        [HttpPut("[action]/{id}")]
         public async Task<IActionResult> UpdateResource([FromBody] Resources resources)
         {
             await _senderService.UpdateResource(resources);

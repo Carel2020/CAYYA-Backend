@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAYYA_Backend.Models
 {
+    [FirestoreData]
     public class UserModel
     {
         public string userID { set; get; }

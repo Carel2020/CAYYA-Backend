@@ -12,7 +12,7 @@ namespace CAYYA_Backend.Services
 {
     public class SenderServices : ISenderService
     {
-        private string filepath = "cayya-resources-021fb5292151.json";
+        private string filepath = "your path";
         private string projectID;
         private FirestoreDb _firestoreDb;
 
@@ -102,6 +102,7 @@ namespace CAYYA_Backend.Services
         public async Task UpdateResource(Resources resources)
         {
             DocumentReference documentReference = _firestoreDb.Collection("Resources").Document(resources.resourceID);
+            resources.resourceDate = Timestamp.GetCurrentTimestamp();
             await documentReference.SetAsync(resources, SetOptions.Overwrite);
         }
 
@@ -114,9 +115,42 @@ namespace CAYYA_Backend.Services
 
                 if (snapshot.Exists)
                 {
+                    /**
                     Resources resources = snapshot.ConvertTo<Resources>();
                     resources.resourceID = snapshot.Id;
                     return resources;
+                    **/
+
+                   
+                    Dictionary<string, object> resource = snapshot.ToDictionary();
+                    string date = resource["resourceDate"].ToString();
+
+                    string data2 = date.Remove(11);
+
+                    int index = date.IndexOf(data2);
+                    string cleanPath = (index < 0)
+                        ? date
+                        : date.Remove(index, data2.Length);
+
+                    DateTime ts = DateTime.Parse(cleanPath);
+
+                    string json = JsonConvert.SerializeObject(resource);
+                    RessourceReceive newResource = JsonConvert.DeserializeObject<RessourceReceive>(json);
+
+                    newResource.resourceID = snapshot.Id;
+                    ResourceCustomersSend resourceCustomersSend = new ResourceCustomersSend();
+                    resourceCustomersSend.resourceDate = ts;
+                    resourceCustomersSend.resourceDescription = newResource.resourceDescription;
+                    resourceCustomersSend.resourceName = newResource.resourceName;
+                    resourceCustomersSend.resourcePath = newResource.resourcePath;
+                    resourceCustomersSend.resourceState = newResource.resourceState;
+                    resourceCustomersSend.resourceID = newResource.resourceID;
+                    resourceCustomersSend.category = newResource.category;
+                    resourceCustomersSend.comments = newResource.comments;
+                    resourceCustomersSend.sender = newResource.sender;
+
+                    return resourceCustomersSend;
+                    
                 }
                 else
                 {
@@ -128,5 +162,75 @@ namespace CAYYA_Backend.Services
                 throw;
             }
         }
+
+        public async Task<Resources> Search(string resourceID)
+        {
+            try
+            {
+                DocumentReference documentReference = _firestoreDb.Collection("Resources").Document(resourceID);
+                DocumentSnapshot snapshot = await documentReference.GetSnapshotAsync();
+
+                if (snapshot.Exists)
+                {
+                    /**
+                    Resources resources = snapshot.ConvertTo<Resources>();
+                    resources.resourceID = snapshot.Id;
+                    return resources;
+                    **/
+
+
+                    Dictionary<string, object> resource = snapshot.ToDictionary();
+                    string date = resource["resourceDate"].ToString();
+
+                    string data2 = date.Remove(11);
+
+                    int index = date.IndexOf(data2);
+                    string cleanPath = (index < 0)
+                        ? date
+                        : date.Remove(index, data2.Length);
+
+                    DateTime ts = DateTime.Parse(cleanPath);
+
+                    string json = JsonConvert.SerializeObject(resource);
+                    RessourceReceive newResource = JsonConvert.DeserializeObject<RessourceReceive>(json);
+
+                    newResource.resourceID = snapshot.Id;
+                    ResourceCustomersSend resourceCustomersSend = new ResourceCustomersSend();
+                    resourceCustomersSend.resourceDate = ts;
+                    resourceCustomersSend.resourceDescription = newResource.resourceDescription;
+                    resourceCustomersSend.resourceName = newResource.resourceName;
+                    resourceCustomersSend.resourcePath = newResource.resourcePath;
+                    resourceCustomersSend.resourceState = newResource.resourceState;
+                    resourceCustomersSend.resourceID = newResource.resourceID;
+                    resourceCustomersSend.category = newResource.category;
+                    resourceCustomersSend.comments = newResource.comments;
+                    resourceCustomersSend.sender = newResource.sender;
+
+                    return resourceCustomersSend;
+
+                }
+                else
+                {
+                    return new Resources();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /**
+       protected async Task SearchEmployee()
+       {
+           await GetEmployeeList();
+           if (searchString != "")
+           {
+               empList = empList.Where(
+               x => x.EmployeeName.IndexOf(searchString,
+               StringComparison.OrdinalIgnoreCase) != -1).ToList();
+           }
+       }
+**/
     }
 }
