@@ -10,6 +10,7 @@ namespace CAYYA_Backend.Services
     {
         //create new resource
         public Task CreateResource(Resources resource);
+        //update a resource
         public Task UpdateResource(Resources resources);
         //delete a resource
         public Task DeleteResource(string resourceID);
